@@ -1,0 +1,567 @@
+diff -U3 /Users/jorit/Git/apache-age-feedstock/miniforge3/conda-bld/age_1774051766878/work/regress/expected/age_load.out /Users/jorit/Git/apache-age-feedstock/miniforge3/conda-bld/age_1774051766878/work/regress/results/age_load.out
+--- /Users/jorit/Git/apache-age-feedstock/miniforge3/conda-bld/age_1774051766878/work/regress/expected/age_load.out	2026-01-21 21:51:48
++++ /Users/jorit/Git/apache-age-feedstock/miniforge3/conda-bld/age_1774051766878/work/regress/results/age_load.out	2026-03-21 01:11:04
+@@ -40,54 +40,41 @@
+ --
+ SELECT load_labels_from_file('agload_test_graph', 'Country',
+     'age_load/countries.csv', true);
+- load_labels_from_file 
+------------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ -- Sequence should be equal to max entry id i.e. 248
+ SELECT currval('agload_test_graph."Country_id_seq"')=248;
+  ?column? 
+ ----------
+- t
++ f
+ (1 row)
+ 
+ -- Should error out on loading the same file again due to duplicate id
+ SELECT load_labels_from_file('agload_test_graph', 'Country',
+     'age_load/countries.csv', true);
+-ERROR:  Cannot insert duplicate vertex id: 844424930131970
+-HINT:  Entry id 2 is already used
++ERROR:  You can only load files located in [/tmp/age/].
+ --
+ -- Load cities with id
+ --
+ -- Should create City label automatically and load cities
+ SELECT load_labels_from_file('agload_test_graph', 'City',
+     'age_load/cities.csv', true);
+-NOTICE:  VLabel "City" has been created
+- load_labels_from_file 
+------------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ -- Sequence should be equal to max entry id i.e. 146941
+ SELECT currval('agload_test_graph."City_id_seq"')=146941;
+- ?column? 
+-----------
+- t
+-(1 row)
+-
++ERROR:  relation "agload_test_graph.City_id_seq" does not exist
++LINE 1: SELECT currval('agload_test_graph."City_id_seq"')=146941;
++                       ^
+ -- Should error out on loading the same file again due to duplicate id
+ SELECT load_labels_from_file('agload_test_graph', 'City',
+     'age_load/cities.csv', true);
+-ERROR:  Cannot insert duplicate vertex id: 1125899906842777
+-HINT:  Entry id 153 is already used
++ERROR:  You can only load files located in [/tmp/age/].
+ --
+ -- Load edges -- Connects cities to countries
+ --
+ -- Should error out for using vertex label
+ SELECT load_edges_from_file('agload_test_graph', 'Country',
+     'age_load/edges.csv');
+-ERROR:  label "Country" already exists as edge label
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT create_elabel('agload_test_graph','has_city');
+ NOTICE:  ELabel "has_city" has been created
+  create_elabel 
+@@ -97,22 +84,14 @@
+ 
+ SELECT load_edges_from_file('agload_test_graph', 'has_city',
+      'age_load/edges.csv');
+- load_edges_from_file 
+-----------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ -- Sequence should be equal to number of edges loaded i.e. 72485
+ SELECT currval('agload_test_graph."has_city_id_seq"')=72485;
+- ?column? 
+-----------
+- t
+-(1 row)
+-
++ERROR:  currval of sequence "has_city_id_seq" is not yet defined in this session
+ -- Should error out for using edge label
+ SELECT load_labels_from_file('agload_test_graph', 'has_city',
+      'age_load/cities.csv');
+-ERROR:  label "has_city" already exists as vertex label
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT table_catalog, table_schema, lower(table_name) as table_name, table_type
+ FROM information_schema.tables
+ WHERE table_schema = 'agload_test_graph' ORDER BY table_name ASC;
+@@ -120,39 +99,36 @@
+ --------------------+-------------------+------------------+------------
+  contrib_regression | agload_test_graph | _ag_label_edge   | BASE TABLE
+  contrib_regression | agload_test_graph | _ag_label_vertex | BASE TABLE
+- contrib_regression | agload_test_graph | city             | BASE TABLE
+  contrib_regression | agload_test_graph | country          | BASE TABLE
+  contrib_regression | agload_test_graph | has_city         | BASE TABLE
+-(5 rows)
++(4 rows)
+ 
+ SELECT COUNT(*) FROM agload_test_graph."Country";
+  count 
+ -------
+-    54
++     1
+ (1 row)
+ 
+ SELECT COUNT(*) FROM agload_test_graph."City";
+- count 
+--------
+- 72485
+-(1 row)
+-
++ERROR:  relation "agload_test_graph.City" does not exist
++LINE 1: SELECT COUNT(*) FROM agload_test_graph."City";
++                             ^
+ SELECT COUNT(*) FROM agload_test_graph."has_city";
+  count 
+ -------
+- 72485
++     0
+ (1 row)
+ 
+ SELECT COUNT(*) FROM cypher('agload_test_graph', $$MATCH(n) RETURN n$$) as (n agtype);
+  count 
+ -------
+- 72539
++     1
+ (1 row)
+ 
+ SELECT COUNT(*) FROM cypher('agload_test_graph', $$MATCH (a)-[e]->(b) RETURN e$$) as (n agtype);
+  count 
+ -------
+- 72485
++     0
+ (1 row)
+ 
+ --
+@@ -161,11 +137,7 @@
+ -- Should load countries in Country label without error since it should use sequence now
+ SELECT load_labels_from_file('agload_test_graph', 'Country',
+     'age_load/countries.csv', false);
+- load_labels_from_file 
+------------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT create_vlabel('agload_test_graph','Country2');
+ NOTICE:  VLabel "Country2" has been created
+  create_vlabel 
+@@ -175,11 +147,7 @@
+ 
+ SELECT load_labels_from_file('agload_test_graph', 'Country2',
+                              'age_load/countries.csv', false);
+- load_labels_from_file 
+------------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT create_vlabel('agload_test_graph','City2');
+ NOTICE:  VLabel "City2" has been created
+  create_vlabel 
+@@ -189,86 +157,57 @@
+ 
+ SELECT load_labels_from_file('agload_test_graph', 'City2',
+                              'age_load/cities.csv', false);
+- load_labels_from_file 
+------------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT COUNT(*) FROM agload_test_graph."Country2";
+  count 
+ -------
+-    53
++     0
+ (1 row)
+ 
+ SELECT COUNT(*) FROM agload_test_graph."City2";
+  count 
+ -------
+- 72485
++     0
+ (1 row)
+ 
+ SELECT id FROM agload_test_graph."Country" LIMIT 10;
+        id        
+ -----------------
+  844424930131969
+- 844424930131970
+- 844424930131971
+- 844424930131974
+- 844424930131983
+- 844424930131989
+- 844424930131990
+- 844424930131996
+- 844424930132002
+- 844424930132023
+-(10 rows)
++(1 row)
+ 
+ SELECT id FROM agload_test_graph."Country2" LIMIT 10;
+-        id        
+-------------------
+- 1688849860263937
+- 1688849860263938
+- 1688849860263939
+- 1688849860263940
+- 1688849860263941
+- 1688849860263942
+- 1688849860263943
+- 1688849860263944
+- 1688849860263945
+- 1688849860263946
+-(10 rows)
++ id 
++----
++(0 rows)
+ 
+ -- Should return 2 rows for Country with same properties, but different ids
+ SELECT * FROM cypher('agload_test_graph', $$MATCH(n:Country {iso2 : 'BE'})
+     RETURN id(n), n.name, n.iso2 $$) as ("id(n)" agtype, "n.name" agtype, "n.iso2" agtype);
+-      id(n)      |  n.name   | n.iso2 
+------------------+-----------+--------
+- 844424930131990 | "Belgium" | "BE"
+- 844424930132223 | "Belgium" | "BE"
+-(2 rows)
++ id(n) | n.name | n.iso2 
++-------+--------+--------
++(0 rows)
+ 
+ -- Should return 1 row
+ SELECT * FROM cypher('agload_test_graph', $$MATCH(n:Country2 {iso2 : 'BE'})
+     RETURN id(n), n.name, n.iso2 $$) as ("id(n)" agtype, "n.name" agtype, "n.iso2" agtype);
+-      id(n)       |  n.name   | n.iso2 
+-------------------+-----------+--------
+- 1688849860263942 | "Belgium" | "BE"
+-(1 row)
++ id(n) | n.name | n.iso2 
++-------+--------+--------
++(0 rows)
+ 
+ -- Should return 2 rows for Country with same properties, but different ids
+ SELECT * FROM cypher('agload_test_graph', $$MATCH(n:Country {iso2 : 'AT'})
+     RETURN id(n), n.name, n.iso2 $$) as ("id(n)" agtype, "n.name" agtype, "n.iso2" agtype);
+-      id(n)      |  n.name   | n.iso2 
+------------------+-----------+--------
+- 844424930131983 | "Austria" | "AT"
+- 844424930132221 | "Austria" | "AT"
+-(2 rows)
++ id(n) | n.name | n.iso2 
++-------+--------+--------
++(0 rows)
+ 
+ -- Should return 1 row
+ SELECT * FROM cypher('agload_test_graph', $$MATCH(n:Country2 {iso2 : 'AT'})
+     RETURN id(n), n.name, n.iso2 $$) as ("id(n)" agtype, "n.name" agtype, "n.iso2" agtype);
+-      id(n)       |  n.name   | n.iso2 
+-------------------+-----------+--------
+- 1688849860263940 | "Austria" | "AT"
+-(1 row)
++ id(n) | n.name | n.iso2 
++-------+--------+--------
++(0 rows)
+ 
+ -- Should return 2 rows for Country with same properties, but different ids
+ SELECT * FROM cypher('agload_test_graph', $$
+@@ -276,25 +215,22 @@
+     WHERE u.name =~ 'Cro.*'
+     RETURN id(u), u.name, u.region
+ $$) AS ("id(u)" agtype, result_1 agtype, result_2 agtype);
+-      id(u)      | result_1  | result_2 
+------------------+-----------+----------
+- 844424930132023 | "Croatia" | "Europe"
+- 844424930132226 | "Croatia" | "Europe"
+-(2 rows)
++ id(u) | result_1 | result_2 
++-------+----------+----------
++(0 rows)
+ 
+ -- There shouldn't be any duplicates
+ SELECT * FROM cypher('agload_test_graph', $$return graph_stats('agload_test_graph')$$) as (a agtype);
+-                                            a                                             
+-------------------------------------------------------------------------------------------
+- {"graph": "agload_test_graph", "num_loaded_edges": 72485, "num_loaded_vertices": 145130}
++                                        a                                        
++---------------------------------------------------------------------------------
++ {"graph": "agload_test_graph", "num_loaded_edges": 0, "num_loaded_vertices": 1}
+ (1 row)
+ 
+ SELECT drop_graph('agload_test_graph', true);
+-NOTICE:  drop cascades to 7 other objects
++NOTICE:  drop cascades to 6 other objects
+ DETAIL:  drop cascades to table agload_test_graph._ag_label_vertex
+ drop cascades to table agload_test_graph._ag_label_edge
+ drop cascades to table agload_test_graph."Country"
+-drop cascades to table agload_test_graph."City"
+ drop cascades to table agload_test_graph.has_city
+ drop cascades to table agload_test_graph."Country2"
+ drop cascades to table agload_test_graph."City2"
+@@ -310,99 +246,38 @@
+ -- vertex: load as agtype
+ -- Should create graph and label automatically
+ SELECT load_labels_from_file('agload_conversion', 'Person1', 'age_load/conversion_vertices.csv', true, true);
+-NOTICE:  graph "agload_conversion" has been created
+-NOTICE:  VLabel "Person1" has been created
+- load_labels_from_file 
+------------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT * FROM cypher('agload_conversion', $$ MATCH (n:Person1) RETURN properties(n) $$) as (a agtype);
+-                                         a                                          
+-------------------------------------------------------------------------------------
+- {"id": 1, "bool": true, "__id__": 1, "string": "John Smith", "numeric": 1}
+- {"id": 2, "bool": false, "__id__": 2, "string": "John", "numeric": -2}
+- {"id": 3, "bool": true, "__id__": 3, "string": "John Smith", "numeric": 1.4}
+- {"id": 4, "bool": false, "__id__": 4, "string": "John", "numeric": -10000000000.0}
+- {"id": 5, "bool": false, "__id__": 5, "string": null, "numeric": 0}
+- {"id": 6, "bool": false, "__id__": 6, "string": "nUll", "numeric": 3.14}
+-(6 rows)
+-
++ERROR:  graph "agload_conversion" does not exist
++LINE 1: SELECT * FROM cypher('agload_conversion', $$ MATCH (n:Person...
++                             ^
+ -- vertex: load as string
+ SELECT create_vlabel('agload_conversion','Person2');
+-NOTICE:  VLabel "Person2" has been created
+- create_vlabel 
+----------------
+- 
+-(1 row)
+-
++ERROR:  graph "agload_conversion" does not exist.
+ SELECT load_labels_from_file('agload_conversion', 'Person2', 'age_load/conversion_vertices.csv', true, false);
+- load_labels_from_file 
+------------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT * FROM cypher('agload_conversion', $$ MATCH (n:Person2) RETURN properties(n) $$) as (a agtype);
+-                                          a                                          
+--------------------------------------------------------------------------------------
+- {"id": "1", "bool": "true", "__id__": 1, "string": "John Smith", "numeric": "1"}
+- {"id": "2", "bool": "false", "__id__": 2, "string": "John", "numeric": "-2"}
+- {"id": "3", "bool": "true", "__id__": 3, "string": "John Smith", "numeric": "1.4"}
+- {"id": "4", "bool": "false", "__id__": 4, "string": "\"John\"", "numeric": "-1e10"}
+- {"id": "5", "bool": "false", "__id__": 5, "string": "null", "numeric": "0"}
+- {"id": "6", "bool": "false", "__id__": 6, "string": "nUll", "numeric": "3.14"}
+-(6 rows)
+-
++ERROR:  graph "agload_conversion" does not exist
++LINE 1: SELECT * FROM cypher('agload_conversion', $$ MATCH (n:Person...
++                             ^
+ -- edge: load as agtype
+ SELECT create_elabel('agload_conversion','Edges1');
+-NOTICE:  ELabel "Edges1" has been created
+- create_elabel 
+----------------
+- 
+-(1 row)
+-
++ERROR:  graph "agload_conversion" does not exist.
+ SELECT load_edges_from_file('agload_conversion', 'Edges1', 'age_load/conversion_edges.csv', true);
+- load_edges_from_file 
+-----------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT * FROM cypher('agload_conversion', $$ MATCH ()-[e:Edges1]->() RETURN properties(e) $$) as (a agtype);
+-                              a                               
+---------------------------------------------------------------
+- {"bool": true, "string": "John Smith", "numeric": 1}
+- {"bool": false, "string": "John", "numeric": -2}
+- {"bool": true, "string": "John Smith", "numeric": 1.4}
+- {"bool": false, "string": "John", "numeric": -10000000000.0}
+- {"bool": false, "string": null, "numeric": 0}
+- {"bool": false, "string": "nUll", "numeric": 3.14}
+-(6 rows)
+-
++ERROR:  graph "agload_conversion" does not exist
++LINE 1: SELECT * FROM cypher('agload_conversion', $$ MATCH ()-[e:Edg...
++                             ^
+ -- edge: load as string
+ SELECT create_elabel('agload_conversion','Edges2');
+-NOTICE:  ELabel "Edges2" has been created
+- create_elabel 
+----------------
+- 
+-(1 row)
+-
++ERROR:  graph "agload_conversion" does not exist.
+ SELECT load_edges_from_file('agload_conversion', 'Edges2', 'age_load/conversion_edges.csv', false);
+- load_edges_from_file 
+-----------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT * FROM cypher('agload_conversion', $$ MATCH ()-[e:Edges2]->() RETURN properties(e) $$) as (a agtype);
+-                              a                              
+--------------------------------------------------------------
+- {"bool": "true", "string": "John Smith", "numeric": "1"}
+- {"bool": "false", "string": "John", "numeric": "-2"}
+- {"bool": "true", "string": "John Smith", "numeric": "1.4"}
+- {"bool": "false", "string": "\"John\"", "numeric": "-1e10"}
+- {"bool": "false", "string": "null", "numeric": "0"}
+- {"bool": "false", "string": "nUll", "numeric": "3.14"}
+-(6 rows)
+-
++ERROR:  graph "agload_conversion" does not exist
++LINE 1: SELECT * FROM cypher('agload_conversion', $$ MATCH ()-[e:Edg...
++                             ^
+ --
+ -- Check sandbox
+ --
+@@ -429,9 +304,9 @@
+ \! touch /tmp/age/age_load/conversion_vertices.txt
+ \! touch /tmp/age/age_load/conversion_edges.txt
+ SELECT load_labels_from_file('agload_conversion', 'Person1', 'age_load/conversion_vertices.txt', true, true);
+-ERROR:  You can only load files with extension [.csv].
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT load_edges_from_file('agload_conversion', 'Edges1', 'age_load/conversion_edges.txt', true);
+-ERROR:  You can only load files with extension [.csv].
++ERROR:  You can only load files located in [/tmp/age/].
+ -- check outside sandbox directory
+ SELECT load_labels_from_file('agload_conversion', 'Person1', '../../etc/passwd', true, true);
+ ERROR:  You can only load files located in [/tmp/age/].
+@@ -441,19 +316,7 @@
+ -- Cleanup
+ --
+ SELECT drop_graph('agload_conversion', true);
+-NOTICE:  drop cascades to 6 other objects
+-DETAIL:  drop cascades to table agload_conversion._ag_label_vertex
+-drop cascades to table agload_conversion._ag_label_edge
+-drop cascades to table agload_conversion."Person1"
+-drop cascades to table agload_conversion."Person2"
+-drop cascades to table agload_conversion."Edges1"
+-drop cascades to table agload_conversion."Edges2"
+-NOTICE:  graph "agload_conversion" has been dropped
+- drop_graph 
+-------------
+- 
+-(1 row)
+-
++ERROR:  graph "agload_conversion" does not exist
+ --
+ -- Test security and permissions
+ --
+@@ -508,9 +371,9 @@
+ -- User has file read permission but no INSERT on the label table
+ SET ROLE load_test_user;
+ SELECT load_labels_from_file('agload_security', 'Person1', 'age_load/conversion_vertices.csv', true);
+-ERROR:  permission denied for table Person1
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT load_edges_from_file('agload_security', 'SecEdge', 'age_load/conversion_edges.csv');
+-ERROR:  permission denied for table SecEdge
++ERROR:  You can only load files located in [/tmp/age/].
+ RESET ROLE;
+ -- Grant INSERT permission and try again - should succeed
+ GRANT USAGE ON SCHEMA agload_security TO load_test_user;
+@@ -522,29 +385,21 @@
+ GRANT SELECT ON ag_catalog.ag_graph TO load_test_user;
+ SET ROLE load_test_user;
+ SELECT load_labels_from_file('agload_security', 'Person1', 'age_load/conversion_vertices.csv', true);
+- load_labels_from_file 
+------------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT load_edges_from_file('agload_security', 'SecEdge', 'age_load/conversion_edges.csv');
+- load_edges_from_file 
+-----------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ RESET ROLE;
+ -- Verify data was loaded
+ SELECT COUNT(*) FROM agload_security."Person1";
+  count 
+ -------
+-     6
++     0
+ (1 row)
+ 
+ SELECT COUNT(*) FROM agload_security."SecEdge";
+  count 
+ -------
+-     6
++     0
+ (1 row)
+ 
+ -- cleanup
+@@ -560,38 +415,28 @@
+ SET ROLE load_test_user;
+ -- Loading should fail when RLS is enabled
+ SELECT load_labels_from_file('agload_security', 'Person1', 'age_load/conversion_vertices.csv', true);
+-ERROR:  LOAD from file is not supported with row-level security
+-HINT:  Use Cypher CREATE clause instead.
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT load_edges_from_file('agload_security', 'SecEdge', 'age_load/conversion_edges.csv');
+-ERROR:  LOAD from file is not supported with row-level security
+-HINT:  Use Cypher CREATE clause instead.
++ERROR:  You can only load files located in [/tmp/age/].
+ RESET ROLE;
+ -- Disable RLS and try again - should succeed
+ ALTER TABLE agload_security."Person1" DISABLE ROW LEVEL SECURITY;
+ ALTER TABLE agload_security."SecEdge" DISABLE ROW LEVEL SECURITY;
+ SELECT load_labels_from_file('agload_security', 'Person1', 'age_load/conversion_vertices.csv', true);
+- load_labels_from_file 
+------------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ SELECT load_edges_from_file('agload_security', 'SecEdge', 'age_load/conversion_edges.csv');
+- load_edges_from_file 
+-----------------------
+- 
+-(1 row)
+-
++ERROR:  You can only load files located in [/tmp/age/].
+ -- Verify data was loaded
+ SELECT COUNT(*) FROM agload_security."Person1";
+  count 
+ -------
+-     6
++     0
+ (1 row)
+ 
+ SELECT COUNT(*) FROM agload_security."SecEdge";
+  count 
+ -------
+-     6
++     0
+ (1 row)
+ 
+ -- cleanup
+@@ -605,15 +450,13 @@
+     CHECK ((properties->>'"bool"')::boolean = true);
+ -- This should fail - constraint violation
+ SELECT load_labels_from_file('agload_security', 'Person1', 'age_load/conversion_vertices.csv', true);
+-ERROR:  new row for relation "Person1" violates check constraint "check_bool_true"
+-DETAIL:  Failing row contains (844424930131970, {"id": "2", "bool": "false", "__id__": 2, "string": "John", "num...).
++ERROR:  You can only load files located in [/tmp/age/].
+ -- Add constraint on edge properties - fail if bool property is false
+ ALTER TABLE agload_security."SecEdge" ADD CONSTRAINT check_bool_true
+     CHECK ((properties->>'"bool"')::boolean = true);
+ -- This should fail - some edges have bool = false
+ SELECT load_edges_from_file('agload_security', 'SecEdge', 'age_load/conversion_edges.csv');
+-ERROR:  new row for relation "SecEdge" violates check constraint "check_bool_true"
+-DETAIL:  Failing row contains (1407374883553294, 844424930131969, 1125899906842625, {"bool": "false", "string": "John", "numeric": "-2"}).
++ERROR:  You can only load files located in [/tmp/age/].
+ -- cleanup
+ ALTER TABLE agload_security."Person1" DROP CONSTRAINT check_bool_true;
+ ALTER TABLE agload_security."SecEdge" DROP CONSTRAINT check_bool_true;
