@@ -1,13 +1,17 @@
-{% set name = "pgvector" %}
-{% set version = "0.8.1" %}
+{% set repo = "apache" %}
+{% set name = "age" %}
+{% set pg_version = "PG18" %}
+{% set version = "1.7.0" %}
 
 package:
-  name: {{ name|lower }}
+  repo: {{ repo }}
+  name: {{ name }}
+  pg_version: {{ pg_version }}
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: a9094dfb85ccdde3cbb295f1086d4c71a20db1d26bf1d6c39f07a7d164033eb4
+  url: https://github.com/{{ repo }}/{{ name }}/releases/download/{{ pg_version }}%2Fv{{ version }}-rc0/{{ repo }}-{{ name }}-{{ version }}-src.tar.gz
+  sha256: 2e503283704eb7b9d9a251cbf4bd1d186a33016e31f4617bbf37a4d60e38ae02
 
 build:
   number: 1
@@ -20,36 +24,40 @@ requirements:
     - gnuconfig       # [unix]
     - postgresql      # [build_platform != target_platform]
     - make            # [unix]
+    - flex            # [unix]
+    - bison           # [unix]
     - m2-patch        # [win]
     - m2-diffutils    # [win]
     - posix           # [win]
   host:
     - postgresql <17  # [win]
     - postgresql      # [not win]
+    - flex            # [unix]
+    - bison           # [unix]
   run:
     - {{ pin_compatible('libpq', max_pin='x.x.x') }}        # [win]
     - libpq                                                 # [not win]
 
 test:
   commands:
-    - test -f $PREFIX/lib/vector.so                                                     # [linux]
-    - test -f $PREFIX/lib/vector.dylib                                                  # [osx]
-    - test -f $PREFIX/share/extension/vector--{{ version }}.sql                         # [unix]
-    - test -f $PREFIX/share/extension/vector.control                                    # [unix]
-    - if not exist %LIBRARY_LIB%\vector.dll exit 1                                      # [win]
-    - if not exist %LIBRARY_PREFIX%\share\extension\vector--{{ version }}.sql exit 1    # [win]
-    - if not exist %LIBRARY_PREFIX%\share\extension\vector.control exit 1               # [win]
+    - test -f $PREFIX/lib/age.so                                                        # [linux]
+    - test -f $PREFIX/lib/age.dylib                                                     # [osx]
+    - test -f $PREFIX/share/extension/age--{{ version }}.sql                            # [unix]
+    - test -f $PREFIX/share/extension/age.control                                       # [unix]
+    - if not exist %LIBRARY_LIB%\age.dll exit 1                                         # [win]
+    - if not exist %LIBRARY_PREFIX%\share\extension\age--{{ version }}.sql exit 1       # [win]
+    - if not exist %LIBRARY_PREFIX%\share\extension\age.control exit 1                  # [win]
 
 
 about:
-  home: https://github.com/pgvector/pgvector
-  summary: Open-source vector similarity search for Postgres.
-  description: Open-source vector similarity search for Postgres.
-  license: PostgreSQL
+  home: https://github.com/apache/age
+  summary: Apache AGE - graph database extension for PostgreSQL.
+  description: Apache AGE is a PostgreSQL extension that provides a graph database engine with support for property graphs and Cypher queries.
+  license: Apache-2.0
   license_file: LICENSE
-  doc_url: https://github.com/pgvector/pgvector
-  dev_url: https://github.com/pgvector/pgvector
+  doc_url: https://age.apache.org/
+  dev_url: https://github.com/apache/age
 
 extra:
   recipe-maintainers:
-    - mmcauliffe
+    - lemonhead94
