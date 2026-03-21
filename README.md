@@ -1,19 +1,19 @@
-About pgvector-feedstock
-========================
+About Apache AGE-feedstock
+===========================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/pgvector-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/apache-age-feedstock/blob/main/LICENSE.txt)
 
-Home: https://github.com/pgvector/pgvector
+Home: https://github.com/apache/age
 
 Package license: PostgreSQL
 
-Summary: Open-source vector similarity search for Postgres.
+Summary: A PostgreSQL extension that provides graph database capabilities with Cypher query language support.
 
-Development: https://github.com/pgvector/pgvector
+Development: https://github.com/apache/age
 
-Documentation: https://github.com/pgvector/pgvector
+Documentation: https://age.apache.org/age-manual/master/index.html
 
-Open-source vector similarity search for Postgres.
+Apache AGE is a leading multi-model graph database. It is an extension for PostgreSQL that enables users to leverage a graph database on top of the existing relational databases. AGE is an acronym for A Graph Extension.
 
 Current build status
 ====================
@@ -26,8 +26,8 @@ Current build status
     <td>
       <details>
         <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18265&branchName=main">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pgvector-feedstock?branchName=main">
+          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=?&branchName=main">
+              <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/apache-age-feedstock?branchName=main">
           </a>
         </summary>
         <table>
@@ -35,43 +35,43 @@ Current build status
           <tbody><tr>
               <td>linux_64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18265&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pgvector-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=?&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/apache-age-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18265&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pgvector-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=?&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/apache-age-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18265&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pgvector-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=?&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/apache-age-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18265&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pgvector-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=?&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/apache-age-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_arm64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18265&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pgvector-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=?&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/apache-age-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18265&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pgvector-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=?&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/apache-age-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
                 </a>
               </td>
             </tr>
@@ -87,53 +87,53 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-pgvector-green.svg)](https://anaconda.org/conda-forge/pgvector) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pgvector.svg)](https://anaconda.org/conda-forge/pgvector) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pgvector.svg)](https://anaconda.org/conda-forge/pgvector) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/pgvector.svg)](https://anaconda.org/conda-forge/pgvector) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-age-green.svg)](https://anaconda.org/conda-forge/age) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/age.svg)](https://anaconda.org/conda-forge/age) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/age.svg)](https://anaconda.org/conda-forge/age) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/age.svg)](https://anaconda.org/conda-forge/age) |
 
-Installing pgvector
+Installing Apache AGE
 ===================
 
-Installing `pgvector` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `age` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `pgvector` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `age` can be installed with `conda`:
 
 ```
-conda install pgvector
-```
-
-or with `mamba`:
-
-```
-mamba install pgvector
-```
-
-It is possible to list all of the versions of `pgvector` available on your platform with `conda`:
-
-```
-conda search pgvector --channel conda-forge
+conda install age
 ```
 
 or with `mamba`:
 
 ```
-mamba search pgvector --channel conda-forge
+mamba install age
+```
+
+It is possible to list all of the versions of `age` available on your platform with `conda`:
+
+```
+conda search age --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search age --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search pgvector --channel conda-forge
+mamba repoquery search age --channel conda-forge
 
-# List packages depending on `pgvector`:
-mamba repoquery whoneeds pgvector --channel conda-forge
+# List packages depending on `age`:
+mamba repoquery whoneeds age --channel conda-forge
 
-# List dependencies of `pgvector`:
-mamba repoquery depends pgvector --channel conda-forge
+# List dependencies of `age`:
+mamba repoquery depends age --channel conda-forge
 ```
 
 
@@ -178,17 +178,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating pgvector-feedstock
-===========================
+Updating Apache AGE-feedstock
+=============================
 
-If you would like to improve the pgvector recipe or build a new
+If you would like to improve the Apache AGE recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/pgvector-feedstock are
+Note that all branches in the conda-forge/apache-age-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
@@ -203,5 +203,5 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
-* [@mmcauliffe](https://github.com/mmcauliffe/)
+* [@apache/age-committers](https://github.com/orgs/apache/teams/age-committers)
 
