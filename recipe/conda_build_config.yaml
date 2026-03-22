@@ -4,3 +4,84 @@ cxx_compiler:                  # [win]
   - vs2019                     # [win]
 libpq:                         # [not win]
   - '17'                       # [not win]
+
+pg_version:
+  - PG18
+  # - PG17
+
+  # - PG17
+  # - PG16
+  # - PG15
+  # - PG14
+
+  # - PG16
+  # - PG15
+  # - PG14
+  # - PG13
+  # - PG12
+  # - PG11
+
+  # - PG15
+  # - PG14
+  # - PG13
+  # - PG12
+  # - PG11
+
+  # - PG13
+  # - PG12
+  # - PG11
+
+version:
+  - 1.7.0
+  # - 1.7.0
+
+  # - 1.6.0
+  # - 1.6.0
+  # - 1.6.0
+  # - 1.6.0
+
+  # - 1.5.0
+  # - 1.5.0
+  # - 1.5.0
+  # - 1.5.0
+  # - 1.5.0
+  # - 1.5.0
+
+  # - 1.4.0
+  # - 1.4.0
+  # - 1.4.0
+  # - 1.4.0
+  # - 1.4.0
+
+  # - 1.3.0
+  # - 1.3.0
+  # - 1.3.0
+
+sha256:
+  - 2e503283704eb7b9d9a251cbf4bd1d186a33016e31f4617bbf37a4d60e38ae02
+  # - 6b39e23af697f9c7806ca76c8d1247e3091bb5220c8d5634c228bf3c1f8e188c
+  
+  # - 57c7187a37942f1b6208e1f68caafcb7374f8bedaabad162c8760adb44ae9ffe
+  # - 719951379d62e3a990941c204ff4cf4cef2d1d89e79955256c26436231e63597
+  # - 9b19d850f5da5ae951114c2cdc1f7d6e46fc875011880e366abc75328fb1e5e8
+  # - 41f7bb523ff026cbf4a307a7820da36dbcf4a5c8ac953cc725fab863d2df3013
+  
+  # - b41abaf5fc89d6a5bcb62a63a6b2fc4b7d0d1530869879b6cc85df931b333b5d
+  # - 15700633d1f79eae8dc8381c0852c0d1fee288fbea23a02a0ade1cde23897ed0
+  # - ef9e07d474d96a3a5c96722b67533526f173c896139e1815e4f3243c3f9d7439
+  # - 293c9342ea14fa99bcba49317fd6feefcf1b3eb21c1c48a24de2dde415b7b399
+  # - bb8745d988d41b804822ae8062b79003a71a2ec2c48871613aa2b52ce62b4228
+  # - 15700633d1f79eae8dc8381c0852c0d1fee288fbea23a02a0ade1cde23897ed0
+
+  # - 3623d7d6b1479ea532c0920ade524f7937c665e6d70e24a05ea391d71204053a
+  # - f263cacd18ca2fb402b89e5105391c507245e8e2bc4968721aaa9a6d5de1f886
+  # - 0c28dfbe684e3f5f936b615aee841d1871047ce01c11dcb113222fd79c7065e1
+  # - 4f6426a5863627880b11d440a5e1ba8c5027dcf444edb93220c5e35f97384c1b
+  # - ff82cb9ce5b4a6600e02048f4bd29ada92d6cca693955d91ae6e73f24202b132
+
+  # - 85de66127e48a8c451ecffedef0b55ffcdc181a23c479d033d0304a1fd563bf8
+  # - 5795e4ca237103c417c30c754d67262ac2a3de53871f981f695fb3d65a448d6e
+  # - 7f111e0e7bcb1f8ac48a9e2cf52a962c7bc7328107bee4cf307c689d58ea137c
+
+zip_keys:
+  - [pg_version, version, sha256]

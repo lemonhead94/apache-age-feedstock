@@ -1,7 +1,5 @@
 {% set repo = "apache" %}
 {% set name = "age" %}
-{% set pg_version = "PG18" %}
-{% set version = "1.7.0" %}
 
 package:
   repo: {{ repo }}
@@ -11,7 +9,7 @@ package:
 
 source:
   url: https://github.com/{{ repo }}/{{ name }}/releases/download/{{ pg_version }}%2Fv{{ version }}-rc0/{{ repo }}-{{ name }}-{{ version }}-src.tar.gz
-  sha256: 2e503283704eb7b9d9a251cbf4bd1d186a33016e31f4617bbf37a4d60e38ae02
+  sha256: {{ sha256 }}
 
 build:
   number: 1
