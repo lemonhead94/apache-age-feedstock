@@ -30,8 +30,6 @@ requirements:
   host:
     - postgresql <17  # [win]
     - postgresql      # [not win]
-    - flex            # [unix]
-    - bison           # [unix]
   run:
     - {{ pin_compatible('libpq', max_pin='x.x.x') }}        # [win]
     - libpq                                                 # [not win]
